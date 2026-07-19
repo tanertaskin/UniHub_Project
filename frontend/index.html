@@ -1,1 +1,169 @@
-//UI
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unihub - Student OS</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-[#F9FAFB] text-gray-900 flex h-screen overflow-hidden">
+
+    <!-- LINKE SEITENLEISTE -->
+    <aside class="w-64 bg-white border-r border-gray-200 flex flex-col justify-between p-6 hidden md:flex">
+        <div>
+            <div class="flex items-center gap-3 mb-10">
+                <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold">U</div>
+                <h1 class="text-xl font-bold tracking-tight">Unihub</h1>
+            </div>
+            
+            <nav class="space-y-2">
+                <a href="#" class="flex items-center gap-3 px-3 py-2 bg-gray-100 text-gray-900 rounded-lg font-medium">
+                    <i data-lucide="layout-dashboard" class="w-5 h-5 text-gray-500"></i> Dashboard
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+                    <i data-lucide="pen-tool" class="w-5 h-5 text-gray-400"></i> UniNotes
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors">
+                    <i data-lucide="calendar" class="w-5 h-5 text-gray-400"></i> Calendar
+                </a>
+                <a href="#" class="flex items-center gap-3 px-3 py-2 text-gray-600 hover:bg-gray-50 rounded-lg font-medium transition-colors justify-between">
+                    <div class="flex items-center gap-3">
+                        <i data-lucide="refresh-cw" class="w-5 h-5 text-gray-400"></i> Moodle Sync
+                    </div>
+                    <div class="w-2 h-2 rounded-full bg-green-500"></div>
+                </a>
+            </nav>
+        </div>
+        
+        <div class="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-50 cursor-pointer">
+            <div class="w-8 h-8 bg-gray-200 rounded-full flex items-center justify-center text-sm font-medium">MK</div>
+            <div>
+                <p class="text-sm font-medium">Mika Keller</p>
+                <p class="text-xs text-gray-500">B.Sc. Economics</p>
+            </div>
+        </div>
+    </aside>
+
+    <!-- HAUPTBEREICH -->
+    <main class="flex-1 overflow-y-auto p-8">
+        
+        <!-- NEU: Dieser Wrapper zentriert das Dashboard auf breiten Monitoren -->
+        <div class="max-w-6xl mx-auto">
+            
+            <header class="flex justify-between items-end mb-8">
+                <div>
+                    <p class="text-sm text-gray-500 font-medium tracking-wider uppercase mb-1">Mittwoch, 12. Nov</p>
+                    <h2 class="text-3xl font-bold tracking-tight">Guten Morgen, Mika.</h2>
+                    <p class="text-gray-500 mt-1">Du hast heute Vorlesungen und anstehende Deadlines.</p>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="relative hidden sm:block">
+                        <i data-lucide="search" class="w-4 h-4 absolute left-3 top-3 text-gray-400"></i>
+                        <input type="text" placeholder="Suchen oder KI fragen..." class="pl-10 pr-4 py-2 border border-gray-200 rounded-full bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 w-64 text-sm">
+                    </div>
+                    <button id="new-btn" class="bg-gray-900 text-white px-4 py-2 rounded-full text-sm font-medium hover:bg-gray-800 flex items-center gap-2">
+                        <i data-lucide="plus" class="w-4 h-4"></i> Neu
+                    </button>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                
+                <!-- Box 1: Tagesplan -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm lg:col-span-2">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-semibold">Tagesplan</h3>
+                        <a href="#" class="text-sm text-gray-500 hover:text-gray-900 flex items-center">Woche ansehen <i data-lucide="chevron-right" class="w-4 h-4 ml-1"></i></a>
+                    </div>
+                    
+                    <!-- Hier fügt JS die Termine ein -->
+                    <div id="schedule-container" class="space-y-6"></div>
+                </div>
+
+                <!-- Box 2: Studienfortschritt -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col items-center justify-center text-center">
+                    <h3 class="font-semibold w-full text-left mb-4">Studienfortschritt</h3>
+                    <div class="relative w-32 h-32 flex items-center justify-center">
+                        <svg class="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" fill="transparent" stroke="#F3F4F6" stroke-width="8"></circle>
+                            <circle cx="50" cy="50" r="40" fill="transparent" stroke="#2563EB" stroke-width="8" stroke-dasharray="251" stroke-dashoffset="80" stroke-linecap="round"></circle>
+                        </svg>
+                        <div class="absolute flex flex-col items-center">
+                            <span class="text-2xl font-bold">120</span>
+                            <span class="text-xs text-gray-500 uppercase font-medium">/ 180 ECTS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Box 3: Deadline Radar -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm lg:col-span-3 mt-2">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="font-semibold flex items-center gap-2">
+                            Deadline Radar
+                        </h3>
+                    </div>
+                    
+                    <!-- Hier fügt JS die Deadlines ein -->
+                    <div id="deadline-container" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                </div>
+                
+            </div>
+        </div> <!-- Ende des max-w-6xl Wrappers -->
+
+    <!-- Pop-up Modal für neue Deadlines (Standardmäßig versteckt) -->
+        <div id="deadline-modal" class="fixed inset-0 bg-black/50 hidden flex items-center justify-center z-50">
+            <div class="bg-white rounded-2xl p-6 w-96 shadow-xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="font-bold text-lg">Neue Deadline anlegen</h3>
+                    <button id="close-modal-btn" class="text-gray-400 hover:text-gray-900"><i data-lucide="x" class="w-5 h-5"></i></button>
+                </div>
+                
+                <form id="new-deadline-form" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Titel</label>
+                        <input type="text" id="input-title" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="z.B. Essay Entwurf">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Kurs / Fach</label>
+                        <input type="text" id="input-course" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="z.B. Makroökonomie">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Wann?</label>
+                            <input type="text" id="input-due" required class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="z.B. Freitag">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Quelle</label>
+                            <input type="text" id="input-source" required value="Moodle" class="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 pt-2">
+                        <input type="checkbox" id="input-urgent" class="rounded text-blue-600 focus:ring-blue-500 h-4 w-4">
+                        <label class="text-sm font-medium text-gray-700">Ist dringend (rot markieren)</label>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-blue-600 text-white rounded-lg px-4 py-2 mt-4 font-medium hover:bg-blue-700 transition-colors">
+                        Deadline speichern
+                    </button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <!-- Icons initialisieren -->
+    <script>
+        lucide.createIcons();
+    </script>
+    <!-- Unsere Logik -->
+    <script src="/js/app.js"></script>
+</body>
+</html>
